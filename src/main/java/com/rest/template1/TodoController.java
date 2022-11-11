@@ -18,7 +18,7 @@ public class TodoController {
     private static final String url = "https://jsonplaceholder.typicode.com/todos";
 
     @GetMapping("/todos")
-    public List<Todo> getTodos(@RequestParam(value = "completed", required = false) String completed) {
+    public List<Todo> getAllTodos(@RequestParam(value = "completed", required = false) String completed) {
         if(!(completed == null)) {
             Todo[] todos = restTemplate.getForObject(url + "?completed=" + completed, Todo[].class);
             if(todos != null) {
@@ -36,7 +36,7 @@ public class TodoController {
     }
 
     @GetMapping("/todos/{id}")
-    public Todo getTodos(@PathVariable("id") long id) {
+    public Todo getTodosById(@PathVariable("id") long id) {
         Todo todo = restTemplate.getForObject(url + "/" + id, Todo.class);
         if(todo != null) {
             return todo;
@@ -46,7 +46,7 @@ public class TodoController {
     }
 
     @GetMapping("/todos/user/{id}")
-    public List<Todo> getTodosById(@PathVariable("id") long id, @RequestParam(value = "completed", required = false) String completed) {
+    public List<Todo> getTodosByUserId(@PathVariable("id") long id, @RequestParam(value = "completed", required = false) String completed) {
         if(!(completed == null)) {
             Todo[] todos = restTemplate.getForObject(url + "/?userId=" + id + "&completed=" + completed, Todo[].class);
             if(todos != null) {
